@@ -1,0 +1,198 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Responsive-navigation</title>
+	  <meta charset="UTF-8">
+  <meta name="description" content="Free Web tutorials">
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+  <meta name="author" content="John Doe">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+		}
+		.container{
+			display: flex;
+			justify-content: space-between;
+			background-color: #f3f3f3;
+			border-bottom: 1px solid #ddd;
+			padding:20px 40px 20px;
+			align-items: center;
+			height: 100px;
+		}
+
+		ul li{
+			display: inline;
+			margin:1px;
+			align-items: center;
+		}
+
+		.active{
+			background-color: orange;
+			color:black;
+		}
+
+		ul li a{
+			text-decoration: none;
+			font-size: 18px;
+			padding: 40px 10px 40px;
+		}
+
+		.hide{
+			display: none;
+		}
+
+		ul li a:hover{
+			background-color: orange;
+			color:black;
+		}
+
+		.logo{
+			font-size: 32px;
+			color: #333;
+			font-family: sans-serif;
+		}
+
+		.fa-bars, .fa-close{
+			font-size: 35px;
+			color:#333;
+			display: none;
+		}
+
+		/*@media (min-width: 720px) and (max-width: 800px){
+			.logo{
+				font-size: 27px;
+			}
+		}*/
+		@media (max-width: 720px) {
+			.fa-bars{
+				display: block;
+				cursor: pointer;
+				float: right;
+				z-index: 1;
+			}
+
+
+			.nav{
+				display: none;
+				background-color: #333;
+				color:white;
+				position: absolute;
+				top: -100%;
+				left: 0;
+				transition: 0.3s linear;
+				width: 100%;
+				padding: 20px;
+				height: 325px;
+			}
+
+			ul li a{
+				color: white;
+				padding: 0px;
+			}
+
+			ul li{
+				display:block;
+				text-align: center;
+				margin: 20px;
+			}
+
+			ul li a:hover{
+				color:orange;
+				background-color: transparent;
+			}
+
+			.active{
+				background-color: transparent;
+				color: orange;
+				font-weight: bolder;
+			}
+
+			.logo{
+				font-size: 27px;	
+			}
+
+			.fa-facebook{
+				display: none;
+			}
+			.fa-close{
+				display: none;
+				color: orange;
+				float: right;
+				cursor: pointer;
+				z-index: 10;
+				font-size: ;
+			}
+
+
+			.hide{
+				display: block;
+				text-align: center;
+				font-size:30px;
+				color: orange;
+			}
+		}
+
+	</style>
+</head>
+<body>
+
+<div class="container">
+
+<h3 class="logo"> Navin Kandpal </h3>
+<i class="fa fa-bars"></i>
+<i class="fa fa-close"></i>
+
+<ul class="nav">
+
+	<li><a href="#" class="active">Home</a></li>
+	<li><a href="#">About</a></li>
+	<li><a href="#">Gallery</a></li>
+	<li><a href="#">Service</a></li>
+	<li><a href="#">Contact</a></li>
+	<i class="fa fa-facebook hide"></i>
+</ul>
+
+<i class="fa fa-facebook"></i>
+
+</div>
+
+
+<script>
+	
+var nav = document.querySelector(".nav");
+var humberger = document.querySelector(".fa-bars");
+var close = document.querySelector(".fa-close");
+
+
+humberger.addEventListener("click", openMenu);
+close.addEventListener("click", closeMenu);
+
+
+function openMenu(){
+	nav.style.display="block";
+	nav.style.top="0%";
+	close.style.display="block";
+	humberger.style.display="none";
+	humberger.target.className("fa-close");
+	
+}
+
+function closeMenu(){
+	nav.style.display="none";
+	nav.style.top="-100%";
+	close.style.display="none";
+	humberger.style.display="block";
+	close.target.className("fa-bars");
+	
+}
+
+</script>
+</body>
+</html>

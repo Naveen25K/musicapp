@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>savan.com</title>
+    <style>
+      body {
+        background-image: url("savan_img/bg.jpg");
+        background-size: 100%;
+        background-repeat: no-repeat;
+      }
+      .savan {
+        background: linear-gradient(to right, red, blue);
+        width: 350px;
+        height: 600px;
+        box-shadow: 0px 5px 5px 5px;
+        border-radius: 5px;
+        opacity: 0.9;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 5px;
+      }
+
+      * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+      }
+      #song_img {
+        width: 100%;
+        border-radius: 50%;
+        /*animation:rotate 3s linear infinite;*/
+      }
+
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      h3 {
+        font-size: 32px;
+        color: white;
+        margin-top: 20px;
+        text-align: center;
+      }
+      h4 {
+        font-size: 18px;
+        color: white;
+        text-align: center;
+      }
+      ul li img {
+        width: 40px;
+        height: auto;
+      }
+      .playbt {
+        width: 40px;
+        height: auto;
+      }
+      ul {
+        list-style-type: none;
+        text-align: center;
+        margin-top: 30px;
+      }
+      ul li {
+        display: inline;
+        margin: 10px;
+      }
+      #marquee {
+        color: white;
+        font-size: 18px;
+        margin-top: 20px;
+      }
+      audio {
+        display: none;
+      }
+
+      #log_out {
+        color: white;
+        font-size: 18px;
+        margin-top: -10px;
+        float: right;
+        margin-right: 10px;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      #main_body {
+        display: none;
+        animation: animate 0.6s linear;
+      }
+
+      @keyframes animate {
+        0% {
+          transform: scale(0);
+        }
+
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      #container {
+        width: 100%;
+        display: grid;
+        height: auto;
+        top: 25%;
+        position: absolute;
+        align-self: center;
+        padding-left: 10px;
+        padding-right: 20px;
+        animation: animates 0.6s linear;
+      }
+
+      @keyframes animates {
+        0% {
+          transform: scaleY(0);
+        }
+
+        100% {
+          transform: scaleY(1);
+        }
+      }
+
+      #container input {
+        width: 100%;
+        text-align: center;
+        background-color: none;
+        border: 1px solid white;
+        padding: 10px 0px 10px;
+        margin: 5px;
+        font-size: 16px;
+        border-radius: 3px;
+        outline: none;
+      }
+
+      #submit_btn {
+        padding: 15px 30px 15px;
+        width: 50%;
+        background-color: transparent;
+        text-align: center;
+        margin-top: 20px;
+        color: white;
+        font-size: 16px;
+        outline: none;
+        border: 1px solid white;
+        border-radius: 3px;
+      }
+
+      #submit_btn:hover {
+        background-color: white;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="savan">
+      <div id="main_body">
+        <p id="log_out" onclick="log_out()">Log out</p>
+        <h3 id="song_name"></h3>
+        <br />
+        <h4 id="artist"></h4>
+        <br />
+
+        <img src="" id="song_img" />
+
+        <ul>
+          <li id="prev"><img src="savan_img/prev.png" /></li>
+          <li id="pause"><img src="savan_img/pause.png" id="change" /></li>
+          <li id="next"><img src="savan_img/next.png" /></li>
+        </ul>
+
+        <marquee id="marquee">
+          <!--  -->
+        </marquee>
+      </div>
+
+      <div id="container">
+        <h3>Login Form</h3>
+        <br />
+        <input type="text" placeholder="username" id="username" />
+        <br />
+        <input
+          type="password"
+          placeholder="password"
+          maxlength="10"
+          id="password"
+        />
+        <br />
+        <center>
+          <button
+            type="submit"
+            value="submit"
+            id="submit_btn"
+            onclick="login_page()"
+          >
+            Login
+          </button>
+        </center>
+      </div>
+    </div>
+
+    <audio id="audios" src="" controls autoplay />
+
+    <script>
+      var prev = document.getElementById("prev");
+      var pause = document.getElementById("pause");
+      var next = document.getElementById("next");
+      var playlist = document.getElementById("audios");
+      var play = document.getElementById("play");
+      var song_name = document.getElementById("song_name");
+      var artist = document.getElementById("artist");
+      var song_img = document.getElementById("song_img");
+      var marquee = document.getElementById("marquee");
+
+      var username = document.getElementById("username");
+      var password = document.getElementById("password");
+
+      var main_body = document.getElementById("main_body");
+      var container = document.getElementById("container");
+
+      const songs = [
+        {
+          audio: "audio1",
+          title: "First_song",
+          artist: "Arijit Singh",
+          image: "Dil",
+          marquee: "Dil Bechara. Sang by Arijit Singh",
+        },
+        {
+          audio: "Ed_Sheeran_1",
+          title: "Second_song",
+          artist: "Ed Sheeran",
+          image: "1",
+          marquee: "Shape of YOu. Sang by ED-sheeran",
+        },
+        {
+          audio: "Ed_Sheeran_2",
+          title: "Third_song",
+          artist: "Ed Sheeran",
+          image: "2",
+          marquee: "Perfect. Sang by ED-sheeran",
+        },
+        {
+          audio: "Ed_Sheeran_3",
+          title: "Fourth song",
+          artist: "Ed Sheeran",
+          image: "3",
+          marquee: "Photograph. Sang by ED-sheeran",
+        },
+        {
+          audio: "Ed_Sheeran_4",
+          title: "Fifth song",
+          artist: "Ed Sheeran",
+          image: "4",
+          marquee: "I don't care. Sang by ED-sheeran",
+        },
+        {
+          audio: "Ed_Sheeran_5",
+          title: "Sixth Song",
+          artist: "Ed Sheeran",
+          image: "5",
+          marquee: "Throwig all way. Sang by ED-sheeran",
+        },
+      ];
+
+      pause.addEventListener("click", function () {
+        //document.getElementById("change").src = "savan_img/play.png"
+
+        if (
+          document.getElementById("change").src ==
+          "file:///C:/Users/User26/Desktop/musicapp/savan_img/pause.png"
+        ) {
+          document.getElementById("change").src =
+            "file:///C:/Users/User26/Desktop/musicapp/savan_img/play.png";
+          playlist.play();
+        } else {
+          document.getElementById("change").src =
+            "file:///C:/Users/User26/Desktop/musicapp/savan_img/pause.png";
+          playlist.pause();
+        }
+      });
+
+      const loadsongs = (songs) => {
+        playlist.src = "songs/" + songs.audio + ".mp3";
+        artist.textContent = songs.artist;
+        song_name.textContent = songs.title;
+        song_img.src = "savan_img/" + songs.image + ".jpg";
+        marquee.textContent = songs.marquee;
+      };
+
+      (() => {
+        loadsongs(songs[0]);
+      })();
+
+      songIndex = 0;
+
+      const nextsongs = () => {
+        songIndex = (songIndex + 1) % songs.length;
+        loadsongs(songs[songIndex]);
+
+        document.getElementById("change").src =
+          "file:///C:/Users/User26/Desktop/musicapp/savan_img/play.png";
+      };
+
+      const prevsongs = () => {
+        songIndex = (songIndex - 1 + songs.length) % songs.length;
+        loadsongs(songs[songIndex]);
+        document.getElementById("change").src =
+          "file:///C:/Users/User26/Desktop/musicapp/savan_img/play.png";
+      };
+
+      next.addEventListener("click", nextsongs);
+      prev.addEventListener("click", prevsongs);
+
+      //Login page......
+
+      function login_page() {
+        if (
+          username.value == "navinkandpal25@gmail.com" &&
+          password.value == "123456"
+        ) {
+          container.style.display = "none";
+          main_body.style.display = "block";
+          username.value = "";
+          password.value = "";
+        } else {
+          alert("wrong credential");
+        }
+      }
+
+      function log_out() {
+        container.style.display = "block";
+        main_body.style.display = "none";
+        document.getElementById("change").src = "";
+      }
+    </script>
+  </body>
+</html>
